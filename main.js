@@ -26,7 +26,7 @@ function displayBooks() {
     bookCard.innerHTML = `<h3 class="book-title">${bookArray[i].title}</h3>
                          <p class="book-author">Author: ${bookArray[i].author}</p>
                          <p class="book-year">Year: ${bookArray[i].year}</p>
-                         <button class="change-status" data-index="0">Mark as Read</button>
+                         <button class="change-status" data-index="${i}">Mark as Read</button>
                          <button id="remove-book-${i}">Remove</button>`;
     // Add the div to the container
     container.appendChild(bookCard);
@@ -39,6 +39,20 @@ function displayBooks() {
       displayBooks();
     });
   }
+  // create a function to change the read status of a book
+
+const changeStatusButtons = document.querySelectorAll('.change-status');
+changeStatusButtons.forEach(button => {
+  button.addEventListener('click', (event) => {
+    const index = event.target.dataset.index;
+    bookArray[index].read = bookArray[index].read ? false : true;
+    if(bookArray[index].read){
+     event.target.innerText = "Mark as hello Unread";
+    }else{
+     event.target.innerText = "Mark as hello Read";
+    }
+  });
+});
 }
 
 //--------------------------------------------------------------
@@ -71,20 +85,7 @@ newBookForm.addEventListener("submit", function(event) {
 });
 
 //--------------------------------------------------------------
-// create a function to change the read status of a book
 
-const changeStatusButtons = document.querySelectorAll('.change-status');
-changeStatusButtons.forEach(button => {
-  button.addEventListener('click', (event) => {
-    const index = event.target.dataset.index;
-    library[index].read = library[index].read ? false : true;
-    if(library[index].read){
-     event.target.innerText = "Mark as Unread";
-    }else{
-     event.target.innerText = "Mark as Read";
-    }
-  });
-});
 
 
 
